@@ -1,3 +1,3 @@
-# Materiały do Kursu tworzenia aplikacji frontendowych
+# Materials from Frontend Development Course
 
-Listy zadań oraz materiały z wykładów kursu "Tworzenie aplikacji frontendowych" który prowadziłem na UWr w semestrze zimowym 2022/2023.
+My solutions in Solution# folders 
