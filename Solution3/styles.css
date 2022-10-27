@@ -1,0 +1,39 @@
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #FBF5F5;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+}
+
+.content__main, .footer_wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.main_header {
+    display: flex;
+    background-color: white;
+    box-shadow: 0px 3px 4px rgba(0,0,0,.1);
+}
+
+.navigation {
+    list-style-type: none;
+    padding: 0px;
+}
+
+.navigation__item {
+    height: 4rem;
+    display: flex;
+}
+
+.navigation__link {
+    background-color: red;
+    height: inherit;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    width: 143px;
+}
