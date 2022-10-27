@@ -1,3 +1,7 @@
+* {
+    font-size: 1rem;
+}
+
 html {
     font-family: 'Times New Roman', 'Times', serif;
 }
@@ -57,7 +61,6 @@ html {
 
 #third-section .link::before {
     content: '🔗';
-    color: inherit;
     display: inline-block;
 }
 
