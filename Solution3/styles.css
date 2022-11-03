@@ -163,3 +163,7 @@ body {
     width: inherit;
     object-fit: contain;
 }
+
+.blog__header, .gallery__header {
+    text-align: center;
+}
