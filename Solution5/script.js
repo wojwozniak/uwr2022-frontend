@@ -1,7 +1,7 @@
-/** Variable representing shopping list */
+/** Object array representing shopping list */
 const list = [
      /**
-     * Each object in list consists of
+     * Each object in this array consists of
      * @param {number} id - id of product
      * @param {string} name - name of product
      * @param {number} items - number of units of item to bu
@@ -25,7 +25,7 @@ const list = [
 */
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
-}
+} 
 
 /** Variable containing current date in DD/MM/YYYY format */
 let currentDate = new Date().toLocaleDateString();
@@ -40,8 +40,11 @@ let currentDate = new Date().toLocaleDateString();
  * @returns {number} ID of newly added item 
  */
 const addItemToList = (name, items, date, price, status) => {
+    if(name === undefined || items === undefined || date === undefined) {
+        throw new Error("Nie podano wystarczajacej ilosci argumentow!");
+    }
     let newId = getRandomInt(21372137);
-    let fixedDate = newDate(date).toLocaleDateString();
+    let fixedDate = new Date(date).toLocaleDateString();
     let defaultStatus = false;
     let defaultPrice = 0;
     if(status) {
@@ -72,7 +75,7 @@ const deleteItemFromList = (id) => {
         return obj.id === id;
     });
     let i = list.indexOf(item);
-    list.splice(item, 1);
+    list.splice(i, 1);
 }
 
 /**
@@ -82,10 +85,14 @@ const deleteItemFromList = (id) => {
  * @param {*} newValue - new value of property
  */
 const editItem = (id, property, newValue) => {
-    let item = list.filter(obj => {
-        return obj.id === id;
+    if(property === undefined || newValue === undefined) {
+        throw new Error("Nie podano wystarczajacej ilosci argumentow!");
+    }
+    let item = list.map(obj => {
+        if(obj.id === id) {
+            obj[property] = newValue;
+        }
     });
-    item[property] = newValue;
 }
 
 /**
@@ -94,24 +101,27 @@ const editItem = (id, property, newValue) => {
  * @param {number} id2 - id of second item to swap
  */
 const moveItem = (id1, id2) => {
-    let item1 = list.filter(obj => {
-        return obj.id === id1;
+    if(id1 === undefined || id2 === undefined) {
+        throw new Error("Nie podano wystarczajacej ilosci argumentow!");
+    }
+    let x  = list.map(obj => {
+        if(obj.id === id1) {
+            obj[id] = id2;
+        }
+        if(obj.id === d2) {
+            obj[id] = id1;
+        }
     });
-    let item2 = list.filter(obj => {
-        return obj.id === id2;
-    });
-    item1.id = id2;
-    item2.id = id1;
 }
 
 /**
  * Function returning array of objects with deadlines set on currentDay
+ * @returns {object[]} - array of objects with deadlines set on currentDay
  */
 const expiringToday = () => {
     let items = list.filter(obj => {
         return obj.date === currentDate;
     });
-    
     return items;
 }
 
@@ -121,27 +131,29 @@ const expiringToday = () => {
  * @param {number} price - New price
  */
 const changePrice = (id,price) => {
-    let item = list.filter(obj => {
-        return obj.id === id;
+    if(price === undefined) {
+        throw new Error("Nie podano wystarczajacej ilosci argumentow!");
+    }
+    let item = list.map(obj => {
+        if(obj.id===id) {
+            obj[price] = price;
+        }
     });
-    item.price = price;
 }
 
 /**
  * Function returning all prices of items bought with deadline set to given day
- * @param {date} date 
+ * @param {date} - given date
  * @returns {number} Sum of all expenses on a given day 
  */
 const priceOnDay = (date) => {
-    let items = list.filter(obj => {
-        if(obj.date === date) {
-            return obj.status === true;
-        }
-    });
+    new Date(date).toLocaleDateString();
     let sum = 0;
-    for(let i=0; i<items.length; i++) {
-        sum+=(items[i].price*items[i].items);
-    }
+    let x = list.map(obj => {
+        if(obj.status === true) {
+            sum+=obj[price]*obj[items];
+        } 
+    });
     return sum;
 }
 
@@ -151,13 +163,10 @@ const priceOnDay = (date) => {
  * @param {function} func - function that we want to format items with
  */
 const massFormat = (ids, func) => {
-    let item;
+    if(func === undefined) {
+        throw new Error("Nie podano wystarczajacej ilosci argumentow!");
+    }
     for(let i=0; i<ids.length; i++) {
-        item = list.filter(obj => {
-            if(obj.id === ids[i]) {
-                return obj;
-            }
-        });
-        func(obj);
+        func(id);
     }
 }

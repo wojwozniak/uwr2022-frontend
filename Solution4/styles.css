@@ -109,5 +109,6 @@ input:invalid, select:invalid, textarea:invalid {
     border-radius: 10px;
     color: white;
     font-size: 3vmin;
+    border: 0px;
 }
 
