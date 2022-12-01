@@ -50,8 +50,16 @@ const list = [
         name: 'dog food',
         items: 1,
         date: currentDate,
-        status: false,
-        price: 0
+        status: true,
+        price: 40
+    },
+    {
+        id: 5,
+        name: 'dog',
+        items: 5,
+        date: currentDate,
+        status: true,
+        price: 200
     }
 ];
 
@@ -135,12 +143,11 @@ const moveItem = (id1, id2) => {
     }
     let i1 = 0, i2 = 0;
     let x  = list.map(obj => {
-        if(obj.id === id1 && i1 == 0) {
-            obj['id'] = id2;
+        if(obj.id == id1 && i1 == 0) {
+            obj.id = id2;
             i1++;
-        }
-        if(obj.id === id2 && i2 == 0) {
-            obj['id'] = id1;
+        } else if(obj.id == id2 && i2 == 0) {
+            obj.id = id1;
             i2++;
         }
     });
@@ -252,4 +259,4 @@ console.table(list);
 
 
 console.log("Logging total price of items bought on 01.02.2024");
-console.table(priceOnDay('01.02.2024'));
+console.table(priceOnDay(currentDate));
