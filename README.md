@@ -1,3 +1,3 @@
-# Materials from Frontend Development Course
+# 2022 Frontend Development Course
 
-My solutions in Solution# folders 
+Repo with solutions to tasks from 2022 frontend development course
