@@ -4,22 +4,19 @@
  * @param {string} desc - description of the element
  * @param {boolean} done - checking if task is done or not
  */
-const taskStore = [
-    {
-        id: 0,
-        desc: "Przykład zadania 1",
-        done: false
-    },
-    {
-        id: 1,
-        desc: "Drugie zadanie",
-        done: true
-    }
-];
+let taskStore = [];
 /** 
  * Container where tasks are rendered
 */ 
 const container = document.getElementById('container');
+
+/**
+ * Function converting taskStore to json string and saving in local storage
+ */
+const storageUpdate = () => {
+    let storage = JSON.stringify(taskStore);
+    localStorage.setItem('store', storage);
+}
 
 /**
  * Function rendering task to container
@@ -188,12 +185,18 @@ const updateTaskNumber = () => {
     let status = document.getElementById("container__status");
     let taskNumber = taskStore.length;
     status.textContent = ` You have ${taskNumber} tasks. Add a new one using + button`;
+    storageUpdate();
 }
 
 /**
  * First render after page loads
  */
 const render = () => {
+    // Checking if there was something stored
+    if(localStorage.store) {
+        let stored = JSON.parse(localStorage.store);
+        taskStore = stored;
+    }
     // Calling render function for all tasks in store
     const renderTasks = () => {
         for(let i=0; i<taskStore.length; i++) {
@@ -206,5 +209,6 @@ const render = () => {
     addTaskHandler();
     handleDeleteAll();
     updateTaskNumber();
+    
 }
 render();
