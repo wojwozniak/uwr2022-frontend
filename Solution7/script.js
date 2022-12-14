@@ -205,6 +205,7 @@ const render = () => {
             renderStrike(task, taskStore[i].id);
         }
     }
+    // Calling all other functions
     renderTasks();
     createEventHandlers();
     addTaskHandler();
