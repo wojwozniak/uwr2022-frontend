@@ -11,7 +11,7 @@ let taskStore = [];
 const container = document.getElementById('container');
 
 /**
- * Function converting taskStore to json string and saving in local storage
+ * Function converting taskStore to json string and saving it in local storage
  */
 const storageUpdate = () => {
     let storage = JSON.stringify(taskStore);
@@ -116,6 +116,7 @@ const handleInput = (e) => {
             }
         }
     });
+    storageUpdate();
     renderStrike(renderedTask, id);
 }
 
