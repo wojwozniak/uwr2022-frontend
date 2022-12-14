@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700);
 body, html, #root {
     background-color: whitesmoke;
-    height: 100%;
+    min-height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -19,10 +19,12 @@ body, html, #root {
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: fit-content;
 }
 
 #container {
     min-height: 70%;
+    height: fit-content;
     width: 100%;
 }
 
@@ -87,13 +89,16 @@ body, html, #root {
     box-sizing: border-box;
 }
 
+.task p {
+    width: 80%;
+}
+
 .task__btns {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin-left: 50%;
 }
 
 .task__check {
