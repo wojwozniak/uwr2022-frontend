@@ -1,10 +1,5 @@
 const cloneDeep = (input) => {
-  input = JSON.parse(JSON.stringify(input));
-  console.log(input.dates);
-  for(let i = 0; i<input.dates.length; i++) {
-    input[dates][i] = new Date(input[dates][i]);
-  }
-  return input;
+  return JSON.parse(JSON.stringify(input));
 }
 
 const user = {
