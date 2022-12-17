@@ -113,6 +113,7 @@ const handleClick = (url) => {
     .catch((error) => handleError(error));
 }
 
+// Fetching list of pokemons and passing it to renderNav function
 fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
 .then((response) => response.json())
 .then((data) => renderNav(data))
