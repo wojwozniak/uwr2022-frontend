@@ -6,15 +6,22 @@
 const capitalize = string => string[0].toUpperCase()+string.substring(1);
 
 /**
- * Function handling errors (API responses)
+ * Function handling errors - displaying message on screen
  * @param {error} error - error
  */
 const handleError = (error) => {
     const screen = document.getElementById("screen");
     screen.innerHTML = ``;
     screen.style.backgroundColor = 'red';
-    screen.textContent = `Error! 
-    Try reloading page with 'F5' button`;
+    let errorMessage = document.createElement("p");
+    errorMessage.classList.add("screen__error");
+    let errorMessageContent = document.createTextNode(`
+    Error!
+    Problem might be caused by your internet connection.
+    Try reloading page using 'F5' button!
+    `);
+    errorMessage.appendChild(errorMessageContent);
+    screen.appendChild(errorMessage);
     console.error(error);
 }
 

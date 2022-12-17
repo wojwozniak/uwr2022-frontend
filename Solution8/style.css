@@ -53,6 +53,7 @@ body, html, #root {
 
 #nav__list a {
     color: black;
+    cursor: pointer;
 }
 
 #display {
@@ -92,6 +93,11 @@ body, html, #root {
 
 .screen__flavour_text {
     width: 90%;
+    text-align: center;
+}
+
+.screen__error {
+    width: 80%;
     text-align: center;
 }
 
