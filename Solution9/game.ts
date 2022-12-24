@@ -1,17 +1,17 @@
-const Endpoints = {
-  ELIXIRS: "Elixirs",
-  SPELLS: "Spells",
-  HOUSES: "Houses",
-  INGREDIENTS: "Ingredients",
-  WIZARDS: "Wizards",
+enum Endpoints {
+  ELIXIRS = "Elixirs",
+  SPELLS = "Spells",
+  HOUSES = "Houses",
+  INGREDIENTS = "Ingredients",
+  WIZARDS = "Wizards",
 };
 
-const Objects = {
-  ELIXIRS: 0,
-  SPELLS: 1,
-  HOUSES: 2,
-  INGREDIENTS: 3,
-  WIZARDS: 4,
+enum Objects {
+  ELIXIRS = 0,
+  SPELLS = 1,
+  HOUSES = 2,
+  INGREDIENTS = 3,
+  WIZARDS = 4,
 };
 
 let elixirs;
