@@ -14,8 +14,8 @@ enum Objects {
   WIZARDS = 4,
 };
 
-let elixirs;
-let spells;
+let elixirs:string;
+let spells:string;
 
 class FetchError extends Error {
   constructor(response) {
@@ -92,26 +92,27 @@ const generateGame = (options, questionFunction) => {
 
   console.log(`Cheatmode: Valid option is option ${valid + 1}`);
 
-  document.getElementById("question").innerText = questionFunction(
+  document.getElementById("question")!.innerText = questionFunction(
     options[valid].question
   );
 
-  document.getElementById("option1").innerText = options[0].answer;
-  document.getElementById("option2").innerText = options[1].answer;
-  document.getElementById("option3").innerText = options[2].answer;
+  document.getElementById("option1")!.innerText = options[0].answer;
+  document.getElementById("option2")!.innerText = options[1].answer;
+  document.getElementById("option3")!.innerText = options[2].answer;
 
-  document.getElementById("options").addEventListener("click", (e) => {
+  document.getElementById("options")!.addEventListener("click", (e) => {
     const target = e.target;
-
-    if (target.tagName !== "BUTTON") return;
-
-    if (Number(target.dataset.option) === valid) {
-      document.getElementById("response").innerText = "Good!";
+    
+    // Target is possibly null - trzeba zagwarantować że istnieje
+    // Oprócz tego property nie na null
+    if ((target as HTMLButtonElement).tagName !== "BUTTON") return;
+    if (Number((target as HTMLButtonElement).dataset.option) === valid) {
+      document.getElementById("response")!.innerText = "Good!";
       round();
       return;
     }
 
-    document.getElementById("response").innerText = "Wrong!";
+    document.getElementById("response")!.innerText = "Wrong!";
   });
 };
 
@@ -126,7 +127,7 @@ const round = () => {
     </div>
   `;
 
-  document.getElementById("game").innerHTML = optionsElement;
+  document.getElementById("game")!.innerHTML = optionsElement;
 
   if (game === Objects.ELIXIRS) {
     const { option1, option2, option3 } = getThreeOptions(elixirs);
@@ -157,16 +158,16 @@ const game = async () => {
 
     round();
   } catch (e) {
-    document.getElementById("game").innerHTML = "";
-    document.getElementById("question").innerHTML = "";
+    document.getElementById("game")!.innerHTML = "";
+    document.getElementById("question")!.innerHTML = "";
 
     if (e instanceof FetchError) {
-      document.getElementById("response").innerText =
+      document.getElementById("response")!.innerText =
         "Problem with the connection. Try refreshing the page.";
       return;
     }
 
-    document.getElementById("response").innerText = e.message;
+    document.getElementById("response")!.innerText = e.message;
   }
 };
 
