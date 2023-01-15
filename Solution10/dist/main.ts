@@ -16,8 +16,9 @@
 
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Open+Sans&family=Orbitron&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n    color: white;\r\n    background-color: black;\r\n    min-height: 100vh;\r\n  }", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "body, .root {\r\n    background-color: white;\r\n    min-height: 100vh;\r\n    width: 100vw;\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n    font-family: 'Open Sans';\r\n  }\r\n\r\n  .calculator {\r\n    width: 400px;\r\n    height: 600px;\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    align-items: center;\r\n    background-color: whitesmoke;\r\n    box-shadow: 0px 30px 50px rgba(0, 0, 0, 0.15), 0 0 100px 0 rgba(25, 25, 25, 0.1);\r\n  }\r\n\r\n  .screen {\r\n    width: 350px;\r\n    height: 60px;\r\n    margin: 20px 0 40px 0;\r\n    background-color: green;\r\n    font-size: 20px;\r\n    font-family: 'Orbitron';\r\n    color: yellow;\r\n  }\r\n\r\n  .button_container {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    flex-direction: row;\r\n    align-items: center;\r\n    justify-content: space-evenly;\r\n    width: 350px;\r\n    gap: 10px;\r\n  }\r\n\r\n  .button {\r\n    background-color: white;\r\n    border: 1px solid black;\r\n    display: flex;\r\n    text-align: center;\r\n    align-items: center;\r\n    justify-content: center;\r\n    width: 100px;\r\n    height: 50px;\r\n    border-radius: 5px;\r\n  }\r\n\r\n  .button:hover {\r\n    cursor: pointer;\r\n    transform: translateY(1px);\r\n    background-color: lightslategrey;\r\n  }\r\n\r\n  .button:active {\r\n    transform: translateY(1px);\r\n    background-color: gray;\r\n  }\r\n\r\n  .button--equals {\r\n    width: 150px;\r\n    background-color: gray;\r\n  }\r\n\r\n  .button--ce {\r\n    width: 150px;\r\n    background-color: red;\r\n  }\r\n\r\n  .button p {\r\n    margin: 0;\r\n  }", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -532,9 +533,46 @@ var update = injectStylesIntoStyleTag_default()(styles/* default */.Z, options);
 ;// CONCATENATED MODULE: ./src/index.ts
 
 
+
+const btns = ['(',')','DEL','7','8','9','4','5','6','1','2','3','0','-','.','*','+','/','CE','='];
+
+
 function component() {
     const element = document.createElement('div');
-   
+    element.classList.add("root");
+    
+    const calc_body = document.createElement('main');
+    calc_body.classList.add("calculator");
+
+    const screen = document.createElement('p');
+    screen.classList.add("screen");
+    const screen_text = document.createTextNode("0");
+    screen.appendChild(screen_text);
+    calc_body.appendChild(screen);
+
+    const button_container = document.createElement('div');
+    button_container.classList.add("button_container");
+
+    for(let i=0; i<20; i++) {
+      let btn = document.createElement('button');
+      let btn_text = document.createTextNode(btns[i]);
+      btn.appendChild(btn_text);
+      btn.classList.add("button");
+      if(btn_text.textContent == '=') {
+        btn.classList.add('button--equals');
+      }
+      if(btn_text.textContent == 'CE') {
+        btn.classList.add('button--ce');
+      }
+      btn.setAttribute('onclick', `handleClick(${btn_text.textContent})`);
+      button_container.appendChild(btn);
+    }
+    calc_body.appendChild(button_container);
+
+
+
+
+    element.appendChild(calc_body);
     return element;
   }
   
