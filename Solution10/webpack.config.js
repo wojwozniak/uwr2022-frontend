@@ -6,6 +6,9 @@ module.exports = {
     filename: 'main.ts',
     path: path.resolve(__dirname, 'dist'),
   },
+  node: {
+    global: true
+  },
   module: {
     rules: [
       {

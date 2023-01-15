@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Orbitron&display=swap');
 
 body, .root {
-    background-color: white;
+    background-color: wheat;
     min-height: 100vh;
     width: 100vw;
     display: flex;
@@ -27,9 +27,12 @@ body, .root {
     height: 60px;
     margin: 20px 0 40px 0;
     background-color: green;
-    font-size: 20px;
+    font-size: 30px;
     font-family: 'Orbitron';
     color: yellow;
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
   }
 
   .button_container {
@@ -52,6 +55,8 @@ body, .root {
     width: 100px;
     height: 50px;
     border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
   }
 
   .button:hover {
