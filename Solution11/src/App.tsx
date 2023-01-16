@@ -9,22 +9,20 @@ function App() {
     done: boolean
   }
 
-  interface taskList {
-    tasks?: Array<task>
-  }
+  const initialState:task[] = [
+    {
+      id: "2132",
+      text: "Example task",
+      done: false
+    },
+    {
+      id: "2137",
+      text: "Example task2",
+      done: true
+    },
+  ];
 
-  const [taskList, updateTaskList] = useState([
-  {
-    id: "2132",
-    text: "Example task",
-    done: false
-  },
-  {
-    id: "2137",
-    text: "Example task2",
-    done: true
-  },
-  ]);
+  const [taskList, updateTaskList] = useState<task[]>(initialState);
   const [currentText, updateCurrentText] = useState("");
 
   const textarea = useRef() as React.MutableRefObject<HTMLTextAreaElement>;
@@ -38,7 +36,6 @@ function App() {
   }
 
   const handleClick = () => {
-
     if(currentText != "") {
       let id = new Date().getTime().toString();
       let task:task = {
@@ -56,6 +53,10 @@ function App() {
         textarea.current.style.border="1px solid gray";
       }, 2000)
     }
+  }
+
+  const handleDeleteAll = () => {
+    updateTaskList([]);
   }
 
   return (
@@ -86,7 +87,7 @@ function App() {
       <p id="container__status">
         You currently have {containerStatus} tasks.
       </p>
-      <button id="delete-all">Delete all tasks</button>
+      <button id="delete-all" onClick = {handleDeleteAll}>Delete all tasks</button>
     </>
   )
 }
