@@ -9,27 +9,16 @@ function App() {
     done: boolean
   }
 
-  const initialState:task[] = [
-    {
-      id: "2132",
-      text: "Example task",
-      done: false
-    },
-    {
-      id: "2137",
-      text: "Example task2",
-      done: true
-    },
-  ];
+  let taskString = localStorage.getItem("tasks");
+  if(!taskString) {
+    taskString = ""
+  }
+  const initialState = JSON.parse(taskString);
 
   const [taskList, updateTaskList] = useState<task[]>(initialState);
   const [currentText, updateCurrentText] = useState<string>("");
 
   const textarea = useRef() as React.MutableRefObject<HTMLTextAreaElement>;
-
-  useEffect(() => {
-    updateContainerStatus(taskList.length);
-  }, [taskList])
 
   const handleTextUpdate = (event:React.ChangeEvent<HTMLTextAreaElement>) => {
     updateCurrentText(event.target.value);
@@ -81,6 +70,11 @@ function App() {
     updateTaskList(newState);
   }
 
+  useEffect(() => {
+    updateContainerStatus(taskList.length);
+    localStorage.setItem("tasks", JSON.stringify(taskList))
+  }, [taskList])
+
   return (
     <>
       <h1>To Do List</h1>
@@ -101,7 +95,7 @@ function App() {
           <div id="control-panel">
               <label id="control-panel__label" htmlFor="control-panel__controls">Add a new task to the list</label>
               <div id="control-panel__controls">
-                  <textarea id="controls__textarea" placeholder="Write new task here:" value={currentText} onChange={handleTextUpdate} ref={textarea}/>
+                  <textarea id="controls__textarea" placeholder="Write new task here:" value={currentText} onChange={handleTextUpdate} ref={textarea} autoFocus/>
                   <button onClick={handleClick} id="controls__button">+</button>
               </div>
           </div>
