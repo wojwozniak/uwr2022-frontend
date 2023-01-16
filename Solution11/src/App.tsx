@@ -72,6 +72,15 @@ function App() {
     updateTaskList(updateDone(task.id));
   }
 
+  const handleDeleteOne = (event:React.MouseEvent<HTMLButtonElement>, input:task) => {
+    const newState:task[] = taskList.filter(task => {
+      if(task.id != input.id) {
+        return task;
+      }
+    });
+    updateTaskList(newState);
+  }
+
   return (
     <>
       <h1>To Do List</h1>
@@ -83,7 +92,7 @@ function App() {
                   <p style={{textDecoration: task.done ? "line-through" : "none"}}>{task.text}</p>
                   <div className="task__btns">
                     <input className="task__check" type="checkbox" onChange={(e) => handleInput(e, task)} checked={task.done}/>
-                    <button className="task__button">X</button>
+                    <button className="task__button" onClick={(e) => handleDeleteOne(e, task)}>X</button>
                   </div>
                 </div>
               })
