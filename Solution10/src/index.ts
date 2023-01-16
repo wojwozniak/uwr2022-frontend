@@ -27,48 +27,38 @@ function component() {
     if(btn_text.textContent == '=') {
       btn.classList.add('button--equals');
       btn.onclick = () => {
-        if(screen_text.textContent != null) {
           try {
-            screen_text.textContent = evaluate(screen_text.textContent);
+            screen_text.textContent = evaluate(screen_text.textContent!);
           }
           catch (error) {
             screen_text.textContent = 'ERROR!';
           }
-        }
       }
     } else if(btn_text.textContent == 'CE') {
       btn.classList.add('button--ce');
       btn.onclick = () => {
-        if(screen_text.textContent != null) {
-            screen_text.textContent = '0';
-        }
+          screen_text.textContent = '0';
       }
     } else if(btn_text.textContent == 'DEL') {
       btn.onclick = () => {
-        if(screen_text.textContent != null) {
-          if(screen_text.textContent.length > 1 && !(screen_text.textContent == "ERROR!")) {
-            screen_text.textContent = screen_text.textContent.slice(0, -1);
-          } else {
-            screen_text.textContent = '0';
-          }
+        if(screen_text.textContent!.length > 1 && !(screen_text.textContent == "ERROR!")) {
+          screen_text.textContent = screen_text.textContent!.slice(0, -1);
+        } else {
+          screen_text.textContent = '0';
         }
+    
       }
     } else {
       btn.onclick = () => {
-        if(screen_text.textContent != null) {
           if(screen_text.textContent == '0' || screen_text.textContent == "ERROR!") {
             screen_text.textContent = '';
           }
-          screen_text.textContent += btn_text.textContent;
-        }
+          screen_text.textContent! += btn_text.textContent;
       }
     }
     button_container.appendChild(btn);
   }
   calc_body.appendChild(button_container);
-
-
-
 
   element.appendChild(calc_body);
   return element;
