@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 function App() {
   const [containerStatus, updateContainerStatus] = useState(0);
@@ -23,7 +23,7 @@ function App() {
   ];
 
   const [taskList, updateTaskList] = useState<task[]>(initialState);
-  const [currentText, updateCurrentText] = useState("");
+  const [currentText, updateCurrentText] = useState<string>("");
 
   const textarea = useRef() as React.MutableRefObject<HTMLTextAreaElement>;
 
@@ -59,6 +59,19 @@ function App() {
     updateTaskList([]);
   }
 
+  const updateDone = (id:string):task[] => {
+    const newState:task[] = taskList.map(task => {
+      if(task.id == id) {
+        return {...task, done: !task.done}
+      } else return task;
+    });
+    return newState;
+  }
+
+  const handleInput = (event:React.ChangeEvent<HTMLInputElement>, task:task) => {
+    updateTaskList(updateDone(task.id));
+  }
+
   return (
     <>
       <h1>To Do List</h1>
@@ -66,10 +79,10 @@ function App() {
           <div id="container">
             {
               taskList.map((task) => {
-                return <div id={task.id} className = 'task'>
+                return <div id={task.id} key={task.id} className = 'task'>
                   <p style={{textDecoration: task.done ? "line-through" : "none"}}>{task.text}</p>
                   <div className="task__btns">
-                    <input className="task__check" type="checkbox"/>
+                    <input className="task__check" type="checkbox" onChange={(e) => handleInput(e, task)} checked={task.done}/>
                     <button className="task__button">X</button>
                   </div>
                 </div>
