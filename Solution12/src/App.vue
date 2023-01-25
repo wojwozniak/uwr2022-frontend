@@ -12,9 +12,6 @@ if(!taskString) {
 const initialState = JSON.parse(taskString);
 const tasks:task[] = initialState;
 
-// Count at the bottom
-const count = tasks.length;
-
 export default {
     data() {
         return {
@@ -27,15 +24,20 @@ export default {
         clear() {
             this.tasks.length = 0;
             this.count = 0;
+            localStorage.setItem("tasks", JSON.stringify(this.tasks));
         },
         input(id:string) {
-            this.tasks.map((this_task: { id: string; done: boolean; }) => {
-                if(this_task.id == id) {
-                    this_task.done = !this_task.done;
+            this.tasks.map((task:task) => {
+                if(task.id == id) {
+                    task.done = !task.done;
                 }
             });
+            localStorage.setItem("tasks", JSON.stringify(this.tasks));
         },
         add() {
+          if(this.text=="") {   
+            return;
+          }
             let newTask:task = {
                 id: new Date().getTime().toString(),
                 text: this.text,
@@ -44,13 +46,19 @@ export default {
             this.text = "";
             this.tasks.push(newTask);
             this.count++;
+            localStorage.setItem("tasks", JSON.stringify(this.tasks));
+        },
+        delet(id:string) {
+          this.tasks.filter((task:task) => id != task.id);
+          this.count = this.tasks.length;
+          localStorage.setItem("tasks", JSON.stringify(this.tasks));
         }
     }
 }
 </script>
 
 <template>
-    <h1>To Do List</h1>
+  <h1>To Do List</h1>
   <main id="wrapper">
       <div id="container"> 
         <div 
@@ -63,8 +71,8 @@ export default {
             {{task.text}}
           </p>
           <div class="task__btns">
+            <button @click="delet(task.id)" class="task__button">X</button>
             <input class="task__check" type="checkbox" v-model="task.done" @click="input(task.id)"/>
-            <button class="task__button">X</button>
           </div>
         </div>
       </div>
