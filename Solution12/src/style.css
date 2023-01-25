@@ -133,6 +133,10 @@ body, html, #app {
     transform: translateY(2px);
 }
 
+.task--crossed {
+    text-decoration: line-through;
+}
+
 #delete-all {
     color: red;
     margin: 7px;
