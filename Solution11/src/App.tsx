@@ -1,33 +1,33 @@
 import React, { useState, useEffect, useRef } from 'react'
 
+interface Task {
+  id: string,
+  text: string,
+  done: boolean
+}
+
 function App() {
   const [containerStatus, updateContainerStatus] = useState(0);
-
-  interface task {
-    id: string,
-    text: string,
-    done: boolean
-  }
 
   let taskString = localStorage.getItem("tasks");
   if(!taskString) {
     taskString = ""
   }
-  const initialState = JSON.parse(taskString);
+  const initialState: Task[] = JSON.parse(taskString);
 
-  const [taskList, updateTaskList] = useState<task[]>(initialState);
-  const [currentText, updateCurrentText] = useState<string>("");
+  const [taskList, updateTaskList] = useState<Task[]>(initialState);
+  const [currentText, updateCurrentText] = useState("");
 
-  const textarea = useRef() as React.MutableRefObject<HTMLTextAreaElement>;
+  const textarea = useRef<HTMLTextAreaElement>(null);
 
-  const handleTextUpdate = (event:React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextUpdate = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     updateCurrentText(event.target.value);
   }
 
   const handleClick = () => {
-    if(currentText != "") {
+    if(currentText !== "") {
       let id = new Date().getTime().toString();
-      let task:task = {
+      let task: Task = {
         id: id,
         text: currentText,
         done: false
@@ -35,11 +35,11 @@ function App() {
       updateTaskList([...taskList, task]);
       updateCurrentText("");
     } else {
-      textarea.current.placeholder="You need to write your task here!";
-      textarea.current.style.border="1px solid red";
+      textarea.current!.placeholder="You need to write your task here!";
+      textarea.current!.style.border="1px solid red";
       setTimeout(()=> {
-        textarea.current.placeholder="Write new task here:";
-        textarea.current.style.border="1px solid gray";
+        textarea.current!.placeholder="Write new task here:";
+        textarea.current!.style.border="1px solid gray";
       }, 2000)
     }
   }
@@ -48,22 +48,22 @@ function App() {
     updateTaskList([]);
   }
 
-  const updateDone = (id:string):task[] => {
-    const newState:task[] = taskList.map(task => {
-      if(task.id == id) {
+  const updateDone = (id:string):Task[] => {
+    const newState: Task[] = taskList.map(task => {
+      if(task.id === id) {
         return {...task, done: !task.done}
       } else return task;
     });
     return newState;
   }
 
-  const handleInput = (event:React.ChangeEvent<HTMLInputElement>, task:task) => {
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>, task:Task) => {
     updateTaskList(updateDone(task.id));
   }
 
-  const handleDeleteOne = (event:React.MouseEvent<HTMLButtonElement>, input:task) => {
-    const newState:task[] = taskList.filter(task => {
-      if(task.id != input.id) {
+  const handleDeleteOne = (event: React.MouseEvent<HTMLButtonElement>, input:Task) => {
+    const newState:Task[] = taskList.filter(task => {
+      if(task.id !== input.id) {
         return task;
       }
     });
@@ -100,12 +100,9 @@ function App() {
               </div>
           </div>
       </main>
-      <p id="container__status">
-        You currently have {containerStatus} tasks.
-      </p>
-      <button id="delete-all" onClick = {handleDeleteAll}>Delete all tasks</button>
+      <p id="container__status">{containerStatus} tasks</p>
+      <button id="delete-all" onClick={handleDeleteAll}>Delete All</button>
     </>
   )
 }
-
-export default App
+export default App;
