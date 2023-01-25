@@ -1,81 +1,151 @@
-:root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700);
+body, html, #app {
+    background-color: whitesmoke;
+    min-height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Open Sans';
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+#wrapper {
+    width: 70%;
+    min-height: 50%;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0px 30px 50px rgba(0, 0, 0, 0.15), 0 0 100px 0 rgba(25, 25, 25, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+#container {
+    min-height: 70%;
+    height: fit-content;
+    width: 100%;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+#control-panel__label {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-.card {
-  padding: 2em;
+#control-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border-top: solid 3px whitesmoke;
+    padding-bottom: 10px;
 }
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+#control-panel__controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 95%;
+    gap: 20px;
+    justify-content: center;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+#controls__button {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 10px;
+    color: black;
+    cursor: pointer;
+}
+
+#controls__button:hover {
+    background-color: gray;
+    color: white;
+}
+
+#controls__button:active {
+    background-color: black;
+    transform: translateY(2px);
+}
+
+#controls__textarea {
+    width: 400px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.task {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-around;
+    border-bottom: solid 1px whitesmoke;
+    padding: 10px;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.task p {
+    width: 80%;
+    overflow-wrap: break-word;
+}
+
+.task__btns {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.task__check {
+    width: 20px;
+    height: 20px;
+    accent-color: gray;
+    cursor: pointer;
+}
+
+.task__button {
+    background-color: white;
+    height: 20px;
+    width: 20px;
+    border-radius: 5px;
+    font-size: 15px;
+    color: black;
+    border: 0px;
+    cursor: pointer;
+}
+
+.task__button:hover {
+    background-color: red;
+    height: 20px;
+    width: 20px;
+    border-radius: 5px;
+    color: black;
+}
+
+.task__button:active {
+    background-color: darkred;
+    transform: translateY(2px);
+}
+
+#delete-all {
+    color: red;
+    margin: 7px;
+    cursor: pointer;
+    background-color: transparent;
+    border: 0px;
+    font-size: 15px;
+}
+
+#delete-all:hover {
+    text-decoration: underline;
+}
+
+#delete-all:active {
+    color: darkred;
 }

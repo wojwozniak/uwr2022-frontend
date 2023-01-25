@@ -1,29 +1,56 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+
+interface task {
+    id: string,
+    text: string,
+    done: boolean
+  }
+
+let taskString = localStorage.getItem("tasks");
+if(!taskString) {
+    taskString = ""
+}
+
+const initialState = JSON.parse(taskString);
+
+const tasks:task[] = initialState;
+
+const count = tasks.length;
+
+console.log(tasks);
+
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <h1>To Do List</h1>
+  <main id="wrapper">
+      <div id="container"> 
+        <div 
+        v-for="(task) in tasks" 
+        v-bind:id="task.id" 
+        class="task"
+        >
+          <p>{{task.text}}</p>
+          <div class="task__btns">
+            <input class="task__check" type="checkbox"/>
+            <button class="task__button">X</button>
+          </div>
+        </div>
+      </div>
+      <div id="control-panel">
+          <label id="control-panel__label" htmlFor="control-panel__controls">
+            Add a new task to the list
+          </label>
+          <div id="control-panel__controls">
+            <textarea 
+            id="controls__textarea" placeholder="Write new task here:" autoFocus
+            />
+            <button id="controls__button">+</button>
+          </div>
+      </div>
+  </main>
+  <p id="container__status">
+    You currently have {{count}} tasks.
+  </p>
+  <button id="delete-all">Delete all tasks</button>
 </template>
-
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
