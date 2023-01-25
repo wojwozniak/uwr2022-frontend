@@ -13,46 +13,48 @@ const initialState = JSON.parse(taskString);
 const tasks:task[] = initialState;
 
 export default {
-    data() {
-        return {
-            count: tasks.length,
-            tasks: initialState,
-            text: ""
-        }
-    },
-    methods: {
-        clear() {
-            this.tasks.length = 0;
-            this.count = 0;
-            localStorage.setItem("tasks", JSON.stringify(this.tasks));
-        },
-        input(id:string) {
-            this.tasks.map((task:task) => {
-                if(task.id == id) {
-                    task.done = !task.done;
-                }
-            });
-            localStorage.setItem("tasks", JSON.stringify(this.tasks));
-        },
-        add() {
-          if(this.text=="") {   
-            return;
-          }
-            let newTask:task = {
-                id: new Date().getTime().toString(),
-                text: this.text,
-                done: false
-            }
-            this.text = "";
-            this.tasks.push(newTask);
-            this.count++;
-            localStorage.setItem("tasks", JSON.stringify(this.tasks));
-        },
-        delet(id:string) {
-          this.tasks.filter((task:task) => id != task.id);
-          this.count = this.tasks.length;
+  data() {
+      return {
+          tasks: initialState,
+          text: ""
+      }
+  },
+  methods: {
+      clear() {
+          this.tasks.length = 0;
           localStorage.setItem("tasks", JSON.stringify(this.tasks));
+      },
+      input(id:string) {
+          this.tasks.map((task:task) => {
+              if(task.id == id) {
+                  task.done = !task.done;
+              }
+          });
+          localStorage.setItem("tasks", JSON.stringify(this.tasks));
+      },
+      add() {
+        if(this.text=="") {   
+          return;
         }
+          let newTask:task = {
+              id: new Date().getTime().toString(),
+              text: this.text,
+              done: false
+          }
+          this.text = "";
+          this.tasks.push(newTask);
+          localStorage.setItem("tasks", JSON.stringify(this.tasks));
+      },
+      delet(id:string) {
+        const index = this.tasks.findIndex((task: task) => task.id === id);
+        this.tasks.splice(index, 1);
+        localStorage.setItem("tasks", JSON.stringify(this.tasks));
+        }
+      }, 
+    computed : {
+      count() {
+        return this.tasks.length;
+      }
     }
 }
 </script>
@@ -63,16 +65,16 @@ export default {
       <div id="container"> 
         <div 
         v-for="(task) in tasks" 
-        v-bind:id="task.id" 
+        :id="task.id" 
         class="task"
         :key="task.id"
         >
-          <p :class="task.done ? 'task--crossed' : ''">
+          <p :class="{ 'task--crossed': task.done }">
             {{task.text}}
           </p>
           <div class="task__btns">
+            <input class="task__check" type="checkbox" v-model="task.done" @change="input(task.id)"/>
             <button @click="delet(task.id)" class="task__button">X</button>
-            <input class="task__check" type="checkbox" v-model="task.done" @click="input(task.id)"/>
           </div>
         </div>
       </div>
